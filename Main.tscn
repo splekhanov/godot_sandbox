@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://my_assets/sounds/collect_item2.wav" type="AudioStream" id=3]
+[ext_resource path="res://SoundBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://StartMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://dodge_assets/art/House In a Forest Loop.ogg" type="AudioStream" id=6]
+
+[node name="Main" type="Node"]
+
+script = ExtResource( 1 )
+
+[node name="Player" parent="." index="0" instance=ExtResource( 2 )]
+
+position = Vector2( 200, 347.487 )
+
+[node name="CollectItem" type="AudioStreamPlayer" parent="." index="1"]
+
+stream = ExtResource( 3 )
+volume_db = -7.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="SoundBox" parent="." index="2" groups=[
+"env",
+] instance=ExtResource( 4 )]
+
+position = Vector2( 559.621, 326.813 )
+
+[node name="SoundBox2" parent="." index="3" groups=[
+"env",
+] instance=ExtResource( 4 )]
+
+position = Vector2( 400, 337.893 )
+
+[node name="SoundBox3" parent="." index="4" groups=[
+"env",
+] instance=ExtResource( 4 )]
+
+position = Vector2( 100, 337.893 )
+
+[node name="Timer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="StartMenu" parent="." index="6" instance=ExtResource( 5 )]
+
+[node name="PlayerStartPosition" type="Position2D" parent="." index="7"]
+
+position = Vector2( 324.211, 129.529 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 6 )
+volume_db = -8.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[connection signal="pickup" from="SoundBox" to="." method="_on_SoundBox_pickup"]
+
+[connection signal="pickup" from="SoundBox2" to="." method="_on_SoundBox_pickup"]
+
+[connection signal="pickup" from="SoundBox3" to="." method="_on_SoundBox_pickup"]
+
+[connection signal="start_game" from="StartMenu" to="." method="new_game"]
+
+
